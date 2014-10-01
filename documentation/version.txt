@@ -1,0 +1,14 @@
+0.4X 2011-04-XX
+===============
+1.  Updated ant.jar lib file to version 1.8.
+2.  Updated jets3t lib file to 0.8.0.
+3.  Added new/changed support to S3Upload.
+4.  Added S3Download taskdef.
+5.  Added S3Synchronize taskdef.
+6.  Added S3List taskdef.
+7.  Incorporated Chris Stewart's S3Copy taskdef.
+8.  Added S3Fileset support to S3Delete.
+9.  Added antlib.xml file to distributable jar.
+10. Moved sample tasks out of build.xml into examples.xml Ant file.
+11. Added examples-antlib.xml Ant file.
+12. Replaced regex in S3Delete with S3Key/Filename selector.

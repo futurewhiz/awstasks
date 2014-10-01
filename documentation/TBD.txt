@@ -1,0 +1,5 @@
+1. Naming of S3Fileset and createFileset task attribute.
+2. antlib taskdefs
+3. regex removed from S3Delete
+4. ResourceCollection/Selector container removed from S3Fileset
+5. New/changed attribute definition.

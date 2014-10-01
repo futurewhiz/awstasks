@@ -1,0 +1,45 @@
+New: Tasks
+----------
+1. S3Download
+2. S3Synchronize
+3. S3List
+4. S3Copy
+
+New: Types
+----------
+1. S3Fileset
+2. S3File
+
+Changes: S3Upload
+-----------------
+1. Added new/changed task attribute.
+2. Added dummy run task attribute.
+
+Changes: S3Delete
+-----------------
+1. Added S3Fileset support.
+2. Removed regex task attribute (redundant - use Key/Filename selectors instead).
+3. Added dummy run task attribute.
+
+Changes: S3Copy
+---------------
+1. Added automatic bucket creation.
+2. Added dummy run task attribute.
+
+Changes: S3FileSet
+------------------
+1. Removed ResourceCollection implementation (S3File insufficiently implements File so its misleading/dangerous).
+2. Removed SelectorContainer implementation  (S3File insufficiently implements File so its misleading/dangerous).
+3. Added includes/excludes patterns
+4. Added nested S3Files.
+5. Commented out unsupported selectors.
+6. Replaced AWS credentials attributes with iterator initialised by containing task.
+
+Changes: S3File
+---------------
+1. Added bucket field.
+   
+Other
+-----
+1. Moved test/example Ant tasks to examples.xml.
+2. Duplicated the tasks in examples.xml to examples-antlib.xml for the antlib taskdefs.

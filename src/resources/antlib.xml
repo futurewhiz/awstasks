@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<antlib>
+  
+ <!-- TASKS -->
+ 
+ <taskdef name="S3list"        classname="dak.ant.taskdefs.S3List"        />
+ <taskdef name="S3copy"        classname="dak.ant.taskdefs.S3Copy"        />
+ <taskdef name="S3upload"      classname="dak.ant.taskdefs.S3Upload"      />
+ <taskdef name="S3download"    classname="dak.ant.taskdefs.S3Download"    />
+ <taskdef name="S3synchronize" classname="dak.ant.taskdefs.S3Synchronize" />
+ <taskdef name="S3delete"      classname="dak.ant.taskdefs.S3Delete"      />
+ 
+ <!-- TYPES -->
+
+ <typedef name="S3fileset" classname="dak.ant.types.S3FileSet" />
+ <typedef name="S3file"    classname="dak.ant.types.S3File"    />
+ 
+</antlib>
