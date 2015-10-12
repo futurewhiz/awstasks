@@ -212,6 +212,12 @@ public abstract class AWSTask extends MatchingTask {
                     object.addMetadata("Cache-Control", "public, max-age=" + MAX_AGE);
                  }
 
+                 String fileName = file.getName();
+                 if (fileName.lastIndexOf(".gz.") != -1) {
+                     // This is a gizped file, so set the content encoding
+                     object.addMetadata("Content-Encoding", "gzip");
+                 }
+
                  object.addMetadata     (Constants.METADATA_JETS3T_LOCAL_FILE_DATE,ServiceUtils.formatIso8601Date(new Date(file.lastModified())));
                  object.setContentLength(file.length());
                  object.setContentType  (contentType);
