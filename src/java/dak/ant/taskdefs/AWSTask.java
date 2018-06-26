@@ -6,11 +6,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.MatchingTask;
@@ -137,6 +133,21 @@ public abstract class AWSTask extends MatchingTask {
                     throw new BuildException("secretKey must be set");
        }
 
+       private Set<String> splitFilePathIntoDirPaths(String path, boolean isDirectoryPlaceholder) {
+                 Set<String> dirPathsSet = new HashSet<String>();
+                 String[] pathComponents = path.split(Constants.FILE_PATH_DELIM);
+                 String myPath = "";
+                 for (int i = 0; i < pathComponents.length; i++) {
+                    String pathComponent = pathComponents[i];
+                    myPath = myPath + pathComponent;
+                    if (i < pathComponents.length - 1 || isDirectoryPlaceholder) {
+                        myPath += Constants.FILE_PATH_DELIM;
+                    }
+                    dirPathsSet.add(myPath);
+                 }
+                 return dirPathsSet;
+        }
+
        /** Replaces jets3t FileComparer buildFileMap to accommodate Ant filesets.
          *
          * @param root Root directory to synchronise.
@@ -167,6 +178,13 @@ public abstract class AWSTask extends MatchingTask {
                             else
                                 fileMap.put(prefix + filepath, file);
                         }
+                     }
+                 }
+
+                 if (prefix != null) {
+                     for (String localPath: splitFilePathIntoDirPaths(prefix, true)) {
+                        File placeholderFile = new File("./");
+                        fileMap.put(localPath, placeholderFile);
                      }
                  }
 

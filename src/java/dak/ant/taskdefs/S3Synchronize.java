@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.activation.MimetypesFileTypeMap;
 
@@ -15,6 +13,7 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.LogLevel;
 
+import org.jets3t.service.Constants;
 import org.jets3t.service.acl.AccessControlList;
 import org.jets3t.service.acl.GroupGrantee;
 import org.jets3t.service.acl.Permission;
@@ -305,6 +304,11 @@ public class S3Synchronize extends AWSTask {
                }
 
                for (String key: rs.onlyOnServerKeys) {
+                   if (!key.startsWith(prefix))
+                   {
+                       continue;
+                   }
+
                    if (delete) {
                       if (dummyRun)
                          log(DUMMY_RUN + " Deleted: [" + key + "]");
@@ -350,6 +354,11 @@ public class S3Synchronize extends AWSTask {
                // ... synchronize
 
                for (String key: rs.onlyOnServerKeys) {
+                   if (!key.startsWith(prefix))
+                   {
+                       continue;
+                   }
+
                    if (dummyRun)
                       log(DUMMY_RUN + " Added: [" + key + "]");
                    else
