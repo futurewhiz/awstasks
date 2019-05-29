@@ -106,13 +106,6 @@ public class S3Copy extends AWSTask {
                        return;
                     }
 
-                    // ... create bucket
-
-                    if (service.getBucket(bucket) == null) {
-                       log("Bucket '" + bucket + "' does not exist ! Creating ...",LogLevel.WARN.getLevel());
-                       service.createBucket(new S3Bucket(bucket));
-                    }
-
                     // ... copy objects in list
 
                     log("Copying " + list.size() + " objects");

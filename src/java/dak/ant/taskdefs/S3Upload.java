@@ -167,13 +167,6 @@ public class S3Upload extends AWSTask  {
                     else
                        mimeTypesMap = new MimetypesFileTypeMap();
 
-                    // ... create bucket if necessary
-
-                    if (service.getBucket(bucket.getName()) == null) {
-                       log("Bucket '" + bucket.getName() + "' does not exist ! Creating ...",LogLevel.WARN.getLevel());
-                       service.createBucket(bucket);
-                    }
-
                     // ... upload
 
                     for (FileSet fs: filesets) {

@@ -74,7 +74,6 @@ public class S3FileSet extends DataType {
        private PatternSet         defaultPatterns      = new PatternSet();
        private List<PatternSet>   additionalPatterns   = new ArrayList<PatternSet>  ();
        private List<FileSelector> selectors            = new ArrayList<FileSelector>();
-       private boolean            errorOnMissingBucket = true;
        private List<S3File>       included;
 
        // TASK ATTRIBUTES
@@ -129,31 +128,6 @@ public class S3FileSet extends DataType {
               dieOnCircularReference();
 
               return prefix;
-       }
-
-       /** Sets whether an error is thrown if a bucket does not exist. Default value
-         * is <code>true</code>.
-         * 
-         * @param enabled <code>true</code> if missing buckets cause errors.
-         */
-       public void setErrorOnMissingBucket(boolean enabled) { 
-              if (isReference())
-                 throw tooManyAttributes();
-
-              this.errorOnMissingBucket = enabled;
-              this.included             = null;
-       }
-
-       /** Returns the 'fail on error' task attribute value, dereferencing it if required.
-         * 
-         */
-       public boolean getErrorOnMissingBucket() {
-              if (isReference())
-                 return getRef(getProject()).getErrorOnMissingBucket();
-
-              dieOnCircularReference();
-
-              return errorOnMissingBucket;
        }
 
        // PATTERN ATTRIBUTES
@@ -521,16 +495,7 @@ public class S3FileSet extends DataType {
        private Set<S3File> scan(Project project,S3Service service) { 
                Set<S3File> included = new ConcurrentSkipListSet<S3File>();
 
-               try { // ... validate
-
-                     if (service.getBucket(bucket) == null) { 
-                        if (errorOnMissingBucket) {
-                           throw new BuildException("S3 bucket '" + bucket + "' does not exist");
-                        }
-
-                        return included;
-                     }
-
+               try {
                      // ... initialise
 
                      PatternSet ps       = mergePatterns(project);
@@ -623,7 +588,7 @@ public class S3FileSet extends DataType {
          * <p>
          * When a pattern ends with a '/' or '\', "**" is appended.
          * 
-         * @param includes A list of include patterns. May be <code>null</code>,
+         * @param patterns A list of include patterns. May be <code>null</code>,
          *                indicating that all objects should be included. If a non-
          *                <code>null</code> list is given, all elements must be non-
          *                <code>null</code>.

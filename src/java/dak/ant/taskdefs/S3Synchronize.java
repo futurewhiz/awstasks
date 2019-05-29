@@ -252,13 +252,6 @@ public class S3Synchronize extends AWSTask {
          * @throws Exception Thrown if a file in the list could not be uploaded and 'failOnError' is set.
          */
        private void upload(RestS3Service service,S3Bucket bucket,File root,File[] list) throws Exception {
-               // ... create bucket if necessary
-
-               if (service.getBucket(bucket.getName()) == null) {
-                  log("Bucket '" + bucket.getName() + "' does not exist ! Creating ...",LogLevel.WARN.getLevel());
-                  service.createBucket(bucket);
-               }
-
                // ... build change list
 
                FileComparer              fc      = FileComparer.getInstance();
